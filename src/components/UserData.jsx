@@ -2,7 +2,9 @@ import { useState } from "react";
 import { useStore } from "../utils/store";
 
 const UserData = () => {
-  const { userData, updateMoney, id } = useStore((state) => state);
+  const { userData, updateMoney, id, sendNotification } = useStore(
+    (state) => state
+  );
   const [money, setMoney] = useState(0);
 
   if (Object.keys(userData).length == 0) return;
@@ -21,13 +23,21 @@ const UserData = () => {
             value={money}
             onChange={(e) => setMoney(e.target.value)}
           />
-          <button
-            type="button"
-            className="bg-slate-800 rounded px-2 py-1"
-            onClick={() => updateMoney(userData.id, money)}
-          >
-            Actualizar
-          </button>
+          <div className="flex gap-2">
+            <button
+              type="button"
+              className="bg-slate-800 hover:bg-slate-600 rounded px-2 py-1"
+              onClick={() => updateMoney(userData.id, money)}
+            >
+              Actualizar
+            </button>
+            <button
+              className="bg-slate-800 hover:bg-slate-600 rounded px-2 py-1"
+              onClick={() => sendNotification(userData.id)}
+            >
+              Notificar cambio
+            </button>
+          </div>
         </div>
       </div>
     )
